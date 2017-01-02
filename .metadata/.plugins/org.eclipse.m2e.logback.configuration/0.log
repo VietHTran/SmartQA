@@ -1,0 +1,18 @@
+2017-01-02 10:11:15,881 [Worker-0] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2017-01-02 11:22:40,782 [ModalContext] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/apache/maven/archetypes/maven-archetype-quickstart/1.1/maven-archetype-quickstart-1.1.jar
+2017-01-02 11:22:40,845 [ModalContext] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/archetypes/maven-archetype-quickstart/1.1/maven-archetype-quickstart-1.1.jar
+2017-01-02 11:22:40,874 [ModalContext] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/apache/maven/archetypes/maven-archetype-quickstart/1.1/maven-archetype-quickstart-1.1.pom
+2017-01-02 11:22:40,899 [ModalContext] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/archetypes/maven-archetype-quickstart/1.1/maven-archetype-quickstart-1.1.pom
+2017-01-02 11:23:50,201 [Worker-17] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Collecting project info '/pom.xml' /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/pom.xml
+2017-01-02 11:23:53,489 [Worker-17] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.viet:SmartQA:0.0.1-SNAPSHOT @ /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/pom.xml.
+2017-01-02 11:23:54,205 [Worker-17] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /SmartQA/src/main/java
+2017-01-02 11:23:54,210 [Worker-17] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /SmartQA/src/test/java
+2017-01-02 11:23:54,491 [Worker-17] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 4 sec
+2017-01-02 11:23:56,491 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-02 11:23:56,491 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-02 11:23:56,496 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-02 11:23:56,496 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-02 11:24:06,843 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-02 11:24:06,843 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-02 11:24:06,846 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-02 11:24:06,846 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources

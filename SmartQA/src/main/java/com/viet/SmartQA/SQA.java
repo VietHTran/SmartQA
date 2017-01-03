@@ -21,38 +21,72 @@ public class SQA
 	private static String[] englishWords; //If not found then lose points
 	private static String[] lvl1Words; //Lose points
 	private static String[] lvl2Words; //Immediately exit
+	private static String[] question;
 	
     public static void main( String[] args ) throws IOException
     {
-    	getStringFromFiles(WORDS_LIST_PATH,englishWords);
-    	getStringFromFiles(LEVEL1_PATH,lvl1Words);
-    	getStringFromFiles(LEVEL2_PATH,lvl2Words);
-        //Write text file address
-        String path="TextFiles/text.txt";
-        
-        //Get subject and content of the question
-        Path filePath = Paths.get(path);
+    	englishWords=getStringFromFiles(WORDS_LIST_PATH);
+    	lvl1Words=getStringFromFiles(LEVEL1_PATH);
+    	lvl2Words=getStringFromFiles(LEVEL2_PATH);
+    	
         try {
-        	Stream<String> qLines=Files.lines(filePath, StandardCharsets.UTF_8);
+        	question=getStringFromFiles("TextFiles/text.txt");
         }catch (NoSuchFileException e) {
         	System.out.println("Error 404: File not found");
         	return;
         }
         
-        //System.out.println(qLines.toArray()[0].toString());
+        for (int i=0;i<question.length;i++) {
+        	String[] words = question[i].split(" ");
+        	for (int k=0;k<words.length;k++) {
+        		if (isNumeric(words[k])) continue;
+        		//Create a copy of word and leave out all none-alphabetic characters
+        		String holder=words[k].toLowerCase()
+        				.replaceAll("[^a-z]", "");
+        		if (!binarySearchWord(holder.toLowerCase(),englishWords)){
+        			System.out.print("Grammar error at ["+i+":"+k+"]: ");
+        			System.out.println(words[k]);
+        		}
+        	}
+        	
+        }
     }
     
-    private static void getStringFromFiles(String path, String[] content) 
+    private static String[] getStringFromFiles(String path) 
     		throws IOException {
     	Path filePath = Paths.get(path);
     	Object[] holder=Files
     			.lines(filePath, StandardCharsets.UTF_8)
     			.toArray();
-    	if (holder==null) return;
-    	content=new String[holder.length];
+    	if (holder==null) return null;
+    	String[] content=new String[holder.length];
     	for (int i=0;i<holder.length;i++) {
     		content[i]=(String)holder[i];
     		//System.out.println(content[i]); //test
     	}
+    	return content;
     }
+    
+    private static boolean binarySearchWord(String word, String[] collections) {
+    	if (word==null || word.length()<2 ||
+    			collections==null || collections.length==0) return false;
+    	int l=0,r=collections.length-1,mid;
+    	//System.out.println(word);
+    	while (l<=r) {
+    		mid=(l+r)/2;
+    		//System.out.println("mid word: "+collections[mid]);
+    		int comp=word.compareTo(collections[mid]);
+    		if (comp==0)
+    			return true;
+    		else if (comp>0) //word is lexicographically larger than collections[i]
+    			l=mid+1;
+    		else //word is lexicographically smaller than collections[i]
+    			r=mid-1;
+    	}
+    	return false;
+    }
+    
+    private static boolean isNumeric(String s) {  
+        return s.matches("[-+]?\\d*\\.?\\d+");  
+    }  
 }

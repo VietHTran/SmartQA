@@ -16,14 +16,19 @@ import java.util.stream.Stream;
 public class SQA 
 {
 	private static final String WORDS_LIST_PATH="TextFiles/wordlist.txt";
-	private static String[] englishWords;
+	private static final String LEVEL1_PATH="TextFiles/InappropriateWordsLvl1.txt";
+	private static final String LEVEL2_PATH="TextFiles/InappropriateWordsLvl2.txt";
+	private static String[] englishWords; //If not found then lose points
+	private static String[] lvl1Words; //Lose points
+	private static String[] lvl2Words; //Immediately exit
 	
     public static void main( String[] args ) throws IOException
     {
-    	getEnglishWords();
-        Scanner sc= new Scanner(System.in);
+    	getStringFromFiles(WORDS_LIST_PATH,englishWords);
+    	getStringFromFiles(LEVEL1_PATH,lvl1Words);
+    	getStringFromFiles(LEVEL2_PATH,lvl2Words);
         //Write text file address
-        String path=sc.nextLine();
+        String path="TextFiles/text.txt";
         
         //Get subject and content of the question
         Path filePath = Paths.get(path);
@@ -36,17 +41,18 @@ public class SQA
         
         //System.out.println(qLines.toArray()[0].toString());
     }
-    //Get all grammatically corrected words
-    private static void getEnglishWords() throws IOException {
-    	Path filePath = Paths.get(WORDS_LIST_PATH);
+    
+    private static void getStringFromFiles(String path, String[] content) 
+    		throws IOException {
+    	Path filePath = Paths.get(path);
     	Object[] holder=Files
     			.lines(filePath, StandardCharsets.UTF_8)
     			.toArray();
     	if (holder==null) return;
-    	englishWords=new String[holder.length];
+    	content=new String[holder.length];
     	for (int i=0;i<holder.length;i++) {
-    		englishWords[i]=(String)holder[i];
-    		//System.out.println(englishWords[i]); //test
+    		content[i]=(String)holder[i];
+    		//System.out.println(content[i]); //test
     	}
     }
 }

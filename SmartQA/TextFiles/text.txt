@@ -1,9 +1,17 @@
-Hola DEA, is this working?
-nein nein
-guten tag
-oui oui 
-huomenta
-gg ez noob
-rush b
-k g b
-hidari migi
+Unable to load library for your platform using built in classes
+Whe I RUN `startfs.sh` or `stopfs.sh` i git the folowing error
+
+<pre>
+	GGEzNoobException: Skills not found LOL
+	Unable to load library
+	Exit code 205
+</pre>
+
+I think mai have the following errors:
+<ul>
+	<li>Hacks</li>
+	<li>Lags</li>
+	<li>Noob teams mate</li>
+</ul>
+
+Swe here for the full cde [foo](http://foo.com)

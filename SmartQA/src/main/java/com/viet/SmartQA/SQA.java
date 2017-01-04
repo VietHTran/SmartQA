@@ -28,7 +28,7 @@ public class SQA
     	englishWords=getStringFromFiles(WORDS_LIST_PATH);
     	lvl1Words=getStringFromFiles(LEVEL1_PATH);
     	lvl2Words=getStringFromFiles(LEVEL2_PATH);
-    	
+    	int points=30;
         try {
         	question=getStringFromFiles("TextFiles/text.txt");
         }catch (NoSuchFileException e) {
@@ -43,13 +43,31 @@ public class SQA
         		//Create a copy of word and leave out all none-alphabetic characters
         		String holder=words[k].toLowerCase()
         				.replaceAll("[^a-z]", "");
-        		if (!binarySearchWord(holder.toLowerCase(),englishWords)){
-        			System.out.print("Grammar error at ["+i+":"+k+"]: ");
-        			System.out.println(words[k]);
+        		if (binarySearchWord(holder.toLowerCase(),lvl2Words)){
+        			printStatus("Rude words or characters",words[k],i,k);
+        			System.out.println("Rated: RTFM");
+        			return;
+        		}
+        		if (binarySearchWord(holder.toLowerCase(),lvl1Words)){
+        			printStatus("Inappropriate words or characters",words[k],i,k);
+        			points-=5;
+        		}
+        		if (!binarySearchWord(holder.toLowerCase(),englishWords)
+        				&& holder.length()>=2 ){
+        			printStatus("Grammar error",words[k],i,k);
+        			points--;
         		}
         	}
-        	
         }
+        System.out.println("Score: "+points);
+        if (points<=10) System.out.println("Rated: RTFM");
+        else if (points<=15) System.out.println("Rated: Average question");
+        else System.out.println("Rated: Smart question");
+    }
+    
+    private static void printStatus(String statusType, String word, int x,int y) {
+    	System.out.print(statusType+" at ["+x+":"+y+"]: ");
+		System.out.println(word);
     }
     
     private static String[] getStringFromFiles(String path) 

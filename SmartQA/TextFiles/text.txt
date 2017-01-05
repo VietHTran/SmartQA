@@ -1,5 +1,6 @@
 Unable to load library for your platform using built in classes
-Whe I RUN `startfs.sh` or `stopfs.sh` i git the folowing error
+Whe I RAN `startfs.sh` or `stopfs.sh` i git the folowing errors
+sheep tooth tomatoes potatoes shelves does doesn't
 
 <pre>
 	GGEzNoobException: Skills not found LOL
@@ -14,4 +15,4 @@ I think mai have the following errors:
 	<li>Noob teams mate</li>
 </ul>
 
-Swe here for the full cde [foo](http://foo.com)
+Swe here for the full cde [foo](http://foo.com) jest okej

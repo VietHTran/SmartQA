@@ -51,6 +51,7 @@ public class SQA
         		//Create a copy of word and leave out all none-alphabetic characters
         		String holder=words[k].toLowerCase()
         				.replaceAll("[^a-z]", "");
+        		//([a-zA-Z]+?)(s\b|\b)
         		if (binarySearchWord(holder.toLowerCase(),lvl2Words)){
         			printStatus("Rude words or characters",words[k],i,k);
         			System.out.println("Rated: RTFM");

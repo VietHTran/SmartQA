@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +21,7 @@ public class SQA
 	private static final String WORDS_LIST_PATH="TextFiles/wordlist.txt";
 	private static final String LEVEL1_PATH="TextFiles/InappropriateWordsLvl1.txt";
 	private static final String LEVEL2_PATH="TextFiles/InappropriateWordsLvl2.txt";
-	private static final String TEST_PATH="TextFiles/text.txt";
+	private static final String TEST_PATH="TextFiles/SnippetTest.txt";
 	private static String[] englishWords; //If not found then lose points
 	private static String[] lvl1Words; //Lose points
 	private static String[] lvl2Words; //Immediately exit
@@ -29,7 +30,7 @@ public class SQA
 	private static boolean isSnippet=false;
 	private static boolean isQuote=false;
 	private static Pattern snippets=Pattern.compile("\\`+(.[^\\`]+?)\\`+");
-	private static Pattern backticks=Pattern.compile("\\`");
+	private static Pattern backticks=Pattern.compile("\\`+");
     public static void main( String[] args ) throws IOException
     {
     	englishWords=getStringFromFiles(WORDS_LIST_PATH);
@@ -45,6 +46,7 @@ public class SQA
         }
         
         for (int i=0;i<question.length;i++) {
+        	checkCodeSnippet(new StringBuilder (question[i]));
         	String[] words = question[i].split("\\s+");
         	if (words==null || words.length==0) continue;
         	for (int k=0;k<words.length;k++) {
@@ -69,7 +71,7 @@ public class SQA
         		}
         		if (!binarySearchWord(holder.toLowerCase(),englishWords)
         				&& holder.length()>=2 ){
-        			//printStatus("Grammar error",words[k],i,k);
+        			printStatus("Grammar error",words[k],i,k);
         			points--;
         		}
         	}
@@ -89,19 +91,39 @@ public class SQA
     }
     
     //check if the word is marked as code text
-    private static void checkCodeSnippet(String word) {
-    	Matcher matcher = snippets.matcher(word);
-    	Matcher counter;
+    private static void checkCodeSnippet(StringBuilder word) {
+    	Matcher matcher = backticks.matcher(word);
+    	int currentMax=0; //Current code snippet
+    	ArrayList<int[]> range=new ArrayList<int[]>();
     	while (matcher.find()) {
-    		String result=matcher.group();
-    		//Prevent unequal number of back ticks on both sides
-    		counter=backticks.matcher(result);
-    		int count=0;
-    		while (counter.find()) {
-    			count++;
+    		//System.out.println(matcher.start()+" "+currentMax); //debug
+    		if (matcher.start()<currentMax) {
+    			matcher.group();
+    			continue;
     		}
-    		//if (count%2==0) System.out.println(result+" "+count); //debug
+    		String result=matcher.group();
+    		int count=result.length();
+    		//System.out.println("count: "+count); //debug
+    		Pattern next=Pattern.compile("\\`{"+count+"}(.+?)\\`{"+count+"}"); //Appear {count} times
+    		Matcher closing=next.matcher(word.substring(matcher.start()));
+    		if (closing.find()) {
+    			int end=closing.end();
+    			int start=matcher.start();
+    			//System.out.println(closing.group()); //debug
+    			currentMax=end+start;
+    			int[] holder=new int[2];
+    			holder[0]=start;
+    			holder[1]=currentMax;
+    			//System.out.println("range: "+holder[0]+" "+holder[1]); //debug
+    			range.add(holder);
+    		}
     	}
+    	for (int i=range.size()-1;i>=0;i--) {
+    		int[] holder=range.get(i);
+    		word.delete(holder[0], holder[1]);
+    		word.insert(holder[0]," ");
+    	}
+    	//System.out.println("fix: "+word); //debug
     }
     
     private static void printStatus(String statusType, String word, int x,int y) {

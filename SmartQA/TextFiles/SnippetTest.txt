@@ -2,5 +2,6 @@ This is a ````` code snippet ````` and this is not
 This is a ``code`` snippet and ``this`` also
 This is also a`code`d
 How a about ``this``and``this`` Right
-How a about ``that``and```that`` Right
-This is not a code ``dab``
+How a about ``that``and ```that`` Right
+Everything is a code ``gg``
+``hajime no `ippo ``

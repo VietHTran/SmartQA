@@ -7,6 +7,8 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 /**
@@ -18,12 +20,16 @@ public class SQA
 	private static final String WORDS_LIST_PATH="TextFiles/wordlist.txt";
 	private static final String LEVEL1_PATH="TextFiles/InappropriateWordsLvl1.txt";
 	private static final String LEVEL2_PATH="TextFiles/InappropriateWordsLvl2.txt";
+	private static final String TEST_PATH="TextFiles/text.txt";
 	private static String[] englishWords; //If not found then lose points
 	private static String[] lvl1Words; //Lose points
 	private static String[] lvl2Words; //Immediately exit
 	private static String[] question;
 	private static boolean isCode=false;
+	private static boolean isSnippet=false;
 	private static boolean isQuote=false;
+	private static Pattern snippets=Pattern.compile("\\`+(.[^\\`]+?)\\`+");
+	private static Pattern backticks=Pattern.compile("\\`");
     public static void main( String[] args ) throws IOException
     {
     	englishWords=getStringFromFiles(WORDS_LIST_PATH);
@@ -32,7 +38,7 @@ public class SQA
     	int points=30;
     	
         try {
-        	question=getStringFromFiles("TextFiles/text.txt");
+        	question=getStringFromFiles(TEST_PATH);
         }catch (NoSuchFileException e) {
         	System.out.println("Error 404: File not found");
         	return;
@@ -45,9 +51,7 @@ public class SQA
         		checkBlockOfCode(words[k]);
         		if (words[k]==null 
         				|| words[k].equals("")
-        				||isNumeric(words[k]) 
-        				||isCodeLine(words[k]) 
-        				||isTag(words[k])) continue;
+        				||isNumeric(words[k])) continue;
         		//Create a copy of word and leave out all none-alphabetic characters
         		String holder=words[k].toLowerCase()
         				.replaceAll("[^a-z]", "");
@@ -65,7 +69,7 @@ public class SQA
         		}
         		if (!binarySearchWord(holder.toLowerCase(),englishWords)
         				&& holder.length()>=2 ){
-        			printStatus("Grammar error",words[k],i,k);
+        			//printStatus("Grammar error",words[k],i,k);
         			points--;
         		}
         	}
@@ -84,15 +88,20 @@ public class SQA
     	//System.out.println(word+" "+isCode);
     }
     
-    private static boolean isCodeLine(String word) {
-    	//check if the word is marked as code text
-    	return (word.charAt(0)=='`' && word.charAt(word.length()-1)=='`');
-    }
-    
-    private static boolean isTag(String word) {
-    	//check if word is an html tag
-    	return ((word.charAt(0)=='<' && word.charAt(word.length()-1)=='>')||
-    			word.charAt(0)=='[' && word.charAt(word.length()-1)==')');
+    //check if the word is marked as code text
+    private static void checkCodeSnippet(String word) {
+    	Matcher matcher = snippets.matcher(word);
+    	Matcher counter;
+    	while (matcher.find()) {
+    		String result=matcher.group();
+    		//Prevent unequal number of back ticks on both sides
+    		counter=backticks.matcher(result);
+    		int count=0;
+    		while (counter.find()) {
+    			count++;
+    		}
+    		//if (count%2==0) System.out.println(result+" "+count); //debug
+    	}
     }
     
     private static void printStatus(String statusType, String word, int x,int y) {
@@ -118,18 +127,18 @@ public class SQA
     private static boolean binarySearchWord(String word, String[] collections) {
     	if (word==null || word.length()<2 ||
     			collections==null || collections.length==0) return false;
-    	int l=0,r=collections.length-1,mid;
+    	int left=0,right=collections.length-1,mid;
     	//System.out.println(word);
-    	while (l<=r) {
-    		mid=(l+r)/2;
+    	while (left<=right) {
+    		mid=(left+right)/2;
     		//System.out.println("mid word: "+collections[mid]);
     		int comp=word.compareTo(collections[mid]);
     		if (comp==0)
     			return true;
     		else if (comp>0) //word is lexicographically larger than collections[i]
-    			l=mid+1;
+    			left=mid+1;
     		else //word is lexicographically smaller than collections[i]
-    			r=mid-1;
+    			right=mid-1;
     	}
     	return false;
     }

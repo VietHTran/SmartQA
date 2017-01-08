@@ -2285,3 +2285,132 @@
 2017-01-07 22:13:04,193 [Worker-124] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
 2017-01-07 22:13:04,195 [Worker-124] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2017-01-07 22:13:04,195 [Worker-124] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:17:24,652 [Worker-1] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2017-01-08 14:19:13,782 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:19:13,784 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:19:13,796 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:19:13,796 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:19:41,327 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:19:41,327 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:19:41,332 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:19:41,333 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:20:37,454 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:20:37,454 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:20:37,475 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:20:37,476 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:21:06,571 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:21:06,582 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:21:06,591 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:21:06,592 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:21:23,424 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:21:23,424 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:21:23,426 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:21:23,427 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:26:08,759 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:26:08,765 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:26:08,774 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:26:08,775 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:26:44,845 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:26:44,845 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:26:44,848 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:26:44,848 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:27:10,537 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:27:10,537 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:27:10,547 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:27:10,548 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:27:23,051 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:27:23,051 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:27:23,059 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:27:23,060 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:28:12,013 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:28:12,013 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:28:12,016 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:28:12,016 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:29:10,554 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:29:10,555 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:29:10,558 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:29:10,558 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:29:19,816 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:29:19,816 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:29:19,818 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:29:19,819 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:29:34,472 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:29:34,473 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:29:34,479 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:29:34,480 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:29:38,352 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:29:38,353 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:29:38,355 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:29:38,355 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:30:17,439 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:30:17,439 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:30:17,442 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:30:17,442 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:30:43,456 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:30:43,457 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:30:43,461 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:30:43,462 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:32:50,481 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:32:50,482 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:32:50,483 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:32:50,484 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:33:06,785 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:33:06,785 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:33:06,788 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:33:06,789 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:33:47,613 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:33:47,613 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:33:47,615 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:33:47,616 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:33:54,393 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:33:54,393 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:33:54,395 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:33:54,396 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:34:32,597 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:34:32,598 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:34:32,600 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:34:32,600 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:34:45,913 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:34:45,913 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:34:45,916 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:34:45,916 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:34:57,318 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:34:57,318 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:34:57,320 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:34:57,320 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:35:42,858 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:35:42,858 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:35:42,860 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:35:42,861 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:36:55,475 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:36:55,475 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:36:55,477 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:36:55,477 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:37:00,446 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:37:00,446 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:37:00,453 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:37:00,454 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:38:03,086 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:38:03,086 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:38:03,089 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:38:03,090 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:39:03,118 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:39:03,119 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:39:03,121 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:39:03,121 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:39:09,071 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:39:09,071 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:39:09,075 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:39:09,076 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:39:14,973 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:39:14,973 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:39:14,992 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:39:14,992 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:39:30,525 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:39:30,526 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:39:30,527 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:39:30,528 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources
+2017-01-08 14:39:47,371 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:39:47,371 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/main/resources
+2017-01-08 14:39:47,373 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-01-08 14:39:47,373 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/viet/Desktop/DevFile/Java/SmartQA/SmartQA/SmartQA/src/test/resources

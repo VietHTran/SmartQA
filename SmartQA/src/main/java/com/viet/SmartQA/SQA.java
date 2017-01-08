@@ -21,7 +21,7 @@ public class SQA
 	private static final String WORDS_LIST_PATH="TextFiles/wordlist.txt";
 	private static final String LEVEL1_PATH="TextFiles/InappropriateWordsLvl1.txt";
 	private static final String LEVEL2_PATH="TextFiles/InappropriateWordsLvl2.txt";
-	private static final String TEST_PATH="TextFiles/SnippetTest.txt";
+	private static final String TEST_PATH="TextFiles/CodeTabTest.txt";
 	private static String[] englishWords; //If not found then lose points
 	private static String[] lvl1Words; //Lose points
 	private static String[] lvl2Words; //Immediately exit
@@ -54,6 +54,7 @@ public class SQA
         				||isNumeric(words[k])) continue;
         		//Create a copy of word and leave out all none-alphabetic characters
         		String holder=getAlphabetOnly(words[k]);
+        		//System.out.println("before after0: "+words[k]+" "+holder); //debug
         		//no need to check for grammar and inappropriate words in code
         		if (isCode) continue;
         		if (binarySearchWord(holder,lvl2Words)){
@@ -61,11 +62,13 @@ public class SQA
         			System.out.println("Rated: RTFM");
         			return;
         		}
+        		//System.out.println("before after1: "+words[k]+" "+holder); //debug
         		if (binarySearchWord(holder,lvl1Words)){
         			printStatus("Inappropriate words or characters",words[k],i,k);
         			points-=5;
         			continue;
         		}
+        		//System.out.println("before after2: "+words[k]+" "+holder); //debug
         		if (!binarySearchWord(holder,englishWords)
         				&& holder.length()>=2 ){
         			printStatus("Grammar error",words[k],i,k);
@@ -83,6 +86,7 @@ public class SQA
     	if (lines==null || lines.length==0) return null;
     	StringBuilder builder=new StringBuilder(lines[0]);
     	for (int i=1;i<lines.length;i++) {
+    		if (isCodeTab(lines[i])) continue;
     		builder.append('\n');
     		builder.append(lines[i]);
     		//If overflow then trim first
@@ -98,6 +102,12 @@ public class SQA
     	else if (word.equals("</code>") || word.equals("</pre>")) 
     		isCode=false; //no longer inside code block
     	//System.out.println(word+" "+isCode);
+    }
+    
+    private static boolean isCodeTab(String word) {
+    	for (int i=0;i<4;i++)
+    		if (word.charAt(i)!=' ') return false;
+    	return true;
     }
     
     //check if the word is marked as code text

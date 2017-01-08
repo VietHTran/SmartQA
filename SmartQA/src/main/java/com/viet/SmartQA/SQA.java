@@ -27,7 +27,6 @@ public class SQA
 	private static String[] lvl2Words; //Immediately exit
 	private static String[] question;
 	private static boolean isCode=false;
-	private static boolean isSnippet=false;
 	private static boolean isQuote=false;
 	private static Pattern snippets=Pattern.compile("\\`+(.[^\\`]+?)\\`+");
 	private static Pattern backticks=Pattern.compile("\\`+");
@@ -44,10 +43,9 @@ public class SQA
         	System.out.println("Error 404: File not found");
         	return;
         }
-        
+        question=arrayToString(question);
         for (int i=0;i<question.length;i++) {
-        	checkCodeSnippet(new StringBuilder (question[i]));
-        	String[] words = question[i].split("\\s+");
+        	String[] words = splitWhiteSpace(question[i]);
         	if (words==null || words.length==0) continue;
         	for (int k=0;k<words.length;k++) {
         		checkBlockOfCode(words[k]);
@@ -55,21 +53,20 @@ public class SQA
         				|| words[k].equals("")
         				||isNumeric(words[k])) continue;
         		//Create a copy of word and leave out all none-alphabetic characters
-        		String holder=words[k].toLowerCase()
-        				.replaceAll("[^a-z]", "");
-        		//([a-zA-Z]+?)(s\b|\b)
-        		if (binarySearchWord(holder.toLowerCase(),lvl2Words)){
+        		String holder=getAlphabetOnly(words[k]);
+        		//no need to check for grammar and inappropriate words in code
+        		if (isCode) continue;
+        		if (binarySearchWord(holder,lvl2Words)){
         			printStatus("Rude words or characters",words[k],i,k);
         			System.out.println("Rated: RTFM");
         			return;
         		}
-        		//no need to check for grammar and inappropriate words in code
-        		if (isCode) continue;
-        		if (binarySearchWord(holder.toLowerCase(),lvl1Words)){
+        		if (binarySearchWord(holder,lvl1Words)){
         			printStatus("Inappropriate words or characters",words[k],i,k);
         			points-=5;
+        			continue;
         		}
-        		if (!binarySearchWord(holder.toLowerCase(),englishWords)
+        		if (!binarySearchWord(holder,englishWords)
         				&& holder.length()>=2 ){
         			printStatus("Grammar error",words[k],i,k);
         			points--;
@@ -80,6 +77,19 @@ public class SQA
         if (points<=10) System.out.println("Rated: RTFM");
         else if (points<=15) System.out.println("Rated: Average question");
         else System.out.println("Rated: Smart question");
+    }
+    
+    private static String[] arrayToString(String[] lines) {
+    	if (lines==null || lines.length==0) return null;
+    	StringBuilder builder=new StringBuilder(lines[0]);
+    	for (int i=1;i<lines.length;i++) {
+    		builder.append('\n');
+    		builder.append(lines[i]);
+    		//If overflow then trim first
+    	}
+    	//System.out.println("builder "+builder);
+    	checkCodeSnippet(builder);
+    	return builder.toString().split("\n");
     }
     
     private static void checkBlockOfCode(String word) {
@@ -104,12 +114,12 @@ public class SQA
     		String result=matcher.group();
     		int count=result.length();
     		//System.out.println("count: "+count); //debug
-    		Pattern next=Pattern.compile("\\`{"+count+"}(.+?)\\`{"+count+"}"); //Appear {count} times
+    		Pattern next=Pattern.compile("\\`{"+count+"}(.+?)\\`{"+count+"}",Pattern.DOTALL); //Appear {count} times
     		Matcher closing=next.matcher(word.substring(matcher.start()));
     		if (closing.find()) {
     			int end=closing.end();
     			int start=matcher.start();
-    			//System.out.println(closing.group()); //debug
+    			//System.out.println("code: "+closing.group()); //debug
     			currentMax=end+start;
     			int[] holder=new int[2];
     			holder[0]=start;
@@ -126,8 +136,19 @@ public class SQA
     	//System.out.println("fix: "+word); //debug
     }
     
+    private static String getAlphabetOnly(String word) {
+    	return word.toLowerCase().replaceAll("[^a-z]", "");
+    }
+    
+    private static String[] splitWhiteSpace(String word) {
+    	return word.split("\\s+");
+    }
+    
     private static void printStatus(String statusType, String word, int x,int y) {
-    	System.out.print(statusType+" at ["+x+":"+y+"]: ");
+    	if (x==-1 && y==-1) 
+    		System.out.print(statusType+": ");
+    	else 
+    		System.out.print(statusType+" at ["+x+":"+y+"]: ");
 		System.out.println(word);
     }
     

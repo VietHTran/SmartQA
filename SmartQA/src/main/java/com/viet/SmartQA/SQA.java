@@ -21,15 +21,14 @@ public class SQA
 	private static final String WORDS_LIST_PATH="TextFiles/wordlist.txt";
 	private static final String LEVEL1_PATH="TextFiles/InappropriateWordsLvl1.txt";
 	private static final String LEVEL2_PATH="TextFiles/InappropriateWordsLvl2.txt";
-	private static final String TEST_PATH="TextFiles/CodeTabTest.txt";
+	private static final String TEST_PATH="TextFiles/text.txt";
 	private static String[] englishWords; //If not found then lose points
 	private static String[] lvl1Words; //Lose points
 	private static String[] lvl2Words; //Immediately exit
 	private static String[] question;
 	private static boolean isCode=false;
-	private static boolean isQuote=false;
-	private static Pattern snippets=Pattern.compile("\\`+(.[^\\`]+?)\\`+");
 	private static Pattern backticks=Pattern.compile("\\`+");
+	private static Pattern hyperlink=Pattern.compile("\\[.+?\\][(].+?[)]");
     public static void main( String[] args ) throws IOException
     {
     	englishWords=getStringFromFiles(WORDS_LIST_PATH);
@@ -92,9 +91,11 @@ public class SQA
     		//If overflow then trim first
     	}
     	//System.out.println("builder "+builder);
+    	checkHyperlink(builder);
     	checkCodeSnippet(builder);
     	return builder.toString().split("\n");
     }
+    
     
     private static void checkBlockOfCode(String word) {
     	if (word.equals("<code>") || word.equals("<pre>")) 
@@ -105,14 +106,34 @@ public class SQA
     }
     
     private static boolean isCodeTab(String word) {
+    	if (word==null || word.length()==0) return false;
     	for (int i=0;i<4;i++)
     		if (word.charAt(i)!=' ') return false;
     	return true;
     }
     
+    //check if text contains hyperlink
+    private static void checkHyperlink(StringBuilder text) {
+    	Matcher hyperlinks=hyperlink.matcher(text);
+    	ArrayList<int[]> range=new ArrayList<int[]>();
+    	while (hyperlinks.find()) {
+    		int[] holder=new int[2];
+    		holder[0]=hyperlinks.start();
+    		holder[1]=hyperlinks.end();
+    		range.add(holder);
+    		//System.out.println("hyperlink found: "+hyperlinks.group()); //debug
+    	}
+    	for (int i=range.size()-1;i>=0;i--) {
+    		int[] holder=range.get(i);
+    		text.delete(holder[0], holder[1]+1);
+    		text.insert(holder[0], ' ');
+    	}
+    	//System.out.println("modified text: "+text); //debug
+    }
+    
     //check if the word is marked as code text
-    private static void checkCodeSnippet(StringBuilder word) {
-    	Matcher matcher = backticks.matcher(word);
+    private static void checkCodeSnippet(StringBuilder text) {
+    	Matcher matcher = backticks.matcher(text);
     	int currentMax=0; //Current code snippet
     	ArrayList<int[]> range=new ArrayList<int[]>();
     	while (matcher.find()) {
@@ -125,7 +146,7 @@ public class SQA
     		int count=result.length();
     		//System.out.println("count: "+count); //debug
     		Pattern next=Pattern.compile("\\`{"+count+"}(.+?)\\`{"+count+"}",Pattern.DOTALL); //Appear {count} times
-    		Matcher closing=next.matcher(word.substring(matcher.start()));
+    		Matcher closing=next.matcher(text.substring(matcher.start()));
     		if (closing.find()) {
     			int end=closing.end();
     			int start=matcher.start();
@@ -140,8 +161,8 @@ public class SQA
     	}
     	for (int i=range.size()-1;i>=0;i--) {
     		int[] holder=range.get(i);
-    		word.delete(holder[0], holder[1]);
-    		word.insert(holder[0]," ");
+    		text.delete(holder[0], holder[1]);
+    		text.insert(holder[0],' ');
     	}
     	//System.out.println("fix: "+word); //debug
     }

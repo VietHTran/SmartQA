@@ -1,0 +1,7 @@
+[This is a link](http://foo.com) gg ez
+Thi is not a lin: .... [this is](http://google.com)
+[ths is alo not]  (allink.org)
+[this is not]
+(too.com)
+[but this is a ``link``<code>gg ez</code>](dealwithit.com)
+[[this too](duh.org)

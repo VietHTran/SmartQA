@@ -1,27 +1,25 @@
 <pre>
-	GGEzNoobException: Skills not found LOL
-	Unable to load library
-	Exit code 205
+	sudo apt-get update
+	sudo apt-get upgrade 
+	sudo apt-get a-life
 </pre>
 
-This is not a code
-
 <code> this is a code </code>
-<code> but this is not a code <code>
+<code> but this is not a code </code>
 <img src="imgr.com"/>
 
-<h1>Average LOL players shopping list</h1>
+<h1>LOL players shopping list</h1>
 
 <ul>
 	<li> Salt </li>
 	<li> Also salt </li>
 	<li> <a href="google.com">And more salt</a> </li>
 	<li>
-		<h2>Extra</h2>
+		<h2>Extra Ingredients</h2>
 		<ol>
 			<li>Salt</li>
 			<li>Salt</li>
 			<li>Salt</li>
 		</ol>
 	</li>
-</ul>
+<ul>

@@ -1,16 +1,34 @@
 package com.viet.SmartQA;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.io.SequenceInputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+
+import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.html.HtmlMapper;
+import org.apache.tika.sax.BodyContentHandler;
+import org.xml.sax.SAXException;
 
 /**
  * Hello world!
@@ -21,7 +39,7 @@ public class SQA
 	private static final String WORDS_LIST_PATH="TextFiles/wordlist.txt";
 	private static final String LEVEL1_PATH="TextFiles/InappropriateWordsLvl1.txt";
 	private static final String LEVEL2_PATH="TextFiles/InappropriateWordsLvl2.txt";
-	private static final String TEST_PATH="TextFiles/text.txt";
+	private static final String TEST_PATH="TextFiles/HTMLTest.txt";
 	private static String[] englishWords; //If not found then lose points
 	private static String[] lvl1Words; //Lose points
 	private static String[] lvl2Words; //Immediately exit
@@ -36,9 +54,10 @@ public class SQA
     	lvl1Words=getStringFromFiles(LEVEL1_PATH);
     	lvl2Words=getStringFromFiles(LEVEL2_PATH);
     	int points=30;
-    	
+    	String fileContent;
         try {
         	question=getStringFromFiles(TEST_PATH);
+        	fileContent=htmlFormatToText(TEST_PATH);
         }catch (NoSuchFileException e) {
         	System.out.println("Error 404: File not found");
         	return;
@@ -95,6 +114,41 @@ public class SQA
     	checkHyperlink(builder);
     	checkCodeSnippet(builder);
     	return builder.toString().split("\n");
+    }
+    
+    private static InputStream wrapTextWithHTMLFormat(InputStream content) {
+    	String beginning = "<!DOCTYPE html>\n<html>\n";
+    	String end = "\n</html>";
+    	List<InputStream> streams = Arrays.asList(
+    	    new ByteArrayInputStream(beginning.getBytes()),
+    	    content,
+    	    new ByteArrayInputStream(end.getBytes()));
+    	InputStream result = new SequenceInputStream(Collections.enumeration(streams));
+    	return result;
+    }
+    
+    private static String htmlFormatToText(String path) {
+    	String text="";
+    	try {
+            InputStream input=wrapTextWithHTMLFormat(new FileInputStream(new File(path)));
+            BodyContentHandler textHandler = new BodyContentHandler();
+            Metadata metadata = new Metadata();
+            AutoDetectParser parser = new AutoDetectParser();
+            ParseContext context = new ParseContext();
+            context.set(HtmlMapper.class, new CustomizedHTMLMapper());
+            parser.parse(input, textHandler, metadata, context);
+            text=textHandler.toString().replaceAll("\\s+", " ");
+            System.out.println("Body: " + text); //debug
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (TikaException e) {
+        	e.printStackTrace();	
+        }
+    	return text;
     }
     
     private static void checkBlockOfCode(String word) {

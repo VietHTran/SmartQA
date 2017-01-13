@@ -29,6 +29,7 @@ public class SQA
 	private static boolean isCode=false;
 	private static Pattern backticks=Pattern.compile("\\`+");
 	private static Pattern hyperlink=Pattern.compile("\\[.+?\\][(].+?[)]");
+	private static Pattern codeTag=Pattern.compile("\\<(code)\\>.+?\\<(code)\\/\\>");
     public static void main( String[] args ) throws IOException
     {
     	englishWords=getStringFromFiles(WORDS_LIST_PATH);
@@ -95,7 +96,6 @@ public class SQA
     	checkCodeSnippet(builder);
     	return builder.toString().split("\n");
     }
-    
     
     private static void checkBlockOfCode(String word) {
     	if (word.equals("<code>") || word.equals("<pre>")) 

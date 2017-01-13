@@ -3,3 +3,8 @@
 	Unable to load library
 	Exit code 205
 </pre>
+
+This is not a code
+
+<code> this is a code </code>
+<code> but this is not a code <code>

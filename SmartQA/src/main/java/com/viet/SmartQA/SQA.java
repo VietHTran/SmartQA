@@ -39,15 +39,12 @@ public class SQA
 	private static final String WORDS_LIST_PATH="TextFiles/wordlist.txt";
 	private static final String LEVEL1_PATH="TextFiles/InappropriateWordsLvl1.txt";
 	private static final String LEVEL2_PATH="TextFiles/InappropriateWordsLvl2.txt";
-	private static final String TEST_PATH="TextFiles/HTMLTest.txt";
+	private static final String TEST_PATH="TextFiles/CodeTest.txt";
 	private static String[] englishWords; //If not found then lose points
 	private static String[] lvl1Words; //Lose points
 	private static String[] lvl2Words; //Immediately exit
-	private static String[] question;
-	private static boolean isCode=false;
 	private static Pattern backticks=Pattern.compile("\\`+");
 	private static Pattern hyperlink=Pattern.compile("\\[.+?\\][(].+?[)]");
-	private static Pattern codeTag=Pattern.compile("\\<(code)\\>.+?\\<(code)\\/\\>");
     public static void main( String[] args ) throws IOException
     {
     	englishWords=getStringFromFiles(WORDS_LIST_PATH);
@@ -56,64 +53,51 @@ public class SQA
     	int points=30;
     	String fileContent;
         try {
-        	question=getStringFromFiles(TEST_PATH);
         	fileContent=htmlFormatToText(TEST_PATH);
-        }catch (NoSuchFileException e) {
+        }catch (Exception e) {
         	System.out.println("Error 404: File not found");
         	return;
         }
-        question=arrayToString(question);
-        for (int i=0;i<question.length;i++) {
-        	String[] words = splitWhiteSpace(question[i]);
-        	if (words==null || words.length==0) continue;
-        	for (int k=0;k<words.length;k++) {
-        		checkBlockOfCode(words[k]);
-        		if (words[k]==null 
-        				|| words[k].equals("")
-        				||isNumeric(words[k])) continue;
-        		//Create a copy of word and leave out all none-alphabetic characters
-        		String holder=getAlphabetOnly(words[k]);
-        		//System.out.println("before after0: "+words[k]+" "+holder); //debug
-        		//no need to check for grammar and inappropriate words in code
-        		if (isCode) continue;
-        		if (binarySearchWord(holder,lvl2Words)){
-        			printStatus("Rude words or characters",words[k],i,k);
-        			System.out.println("Rated: RTFM");
-        			return;
-        		}
-        		//System.out.println("before after1: "+words[k]+" "+holder); //debug
-        		if (binarySearchWord(holder,lvl1Words)){
-        			printStatus("Inappropriate words or characters",words[k],i,k);
-        			points-=5;
-        			continue;
-        		}
-        		//System.out.println("before after2: "+words[k]+" "+holder); //debug
-        		if (!binarySearchWord(holder,englishWords)
-        				&& holder.length()>=2 ){
-        			printStatus("Grammar error",words[k],i,k);
-        			points--;
-        		}
-        	}
-        }
+        fileContent=trimText(fileContent);
+        String[] words = splitWhiteSpace(fileContent);
+    	if (words==null || words.length==0) return;
+    	for (int k=0;k<words.length;k++) {
+    		if (words[k]==null 
+    				|| words[k].equals("")
+    				||isNumeric(words[k])) continue;
+    		//Create a copy of word and leave out all none-alphabetic characters
+    		String holder=getAlphabetOnly(words[k]);
+    		//System.out.println("before after0: "+words[k]+" "+holder); //debug
+    		if (binarySearchWord(holder,lvl2Words)){
+    			printStatus("Rude words or characters",words[k]);
+    			System.out.println("Rated: RTFM");
+    			return;
+    		}
+    		//System.out.println("before after1: "+words[k]+" "+holder); //debug
+    		if (binarySearchWord(holder,lvl1Words)){
+    			printStatus("Inappropriate words or characters",words[k]);
+    			points-=5;
+    			continue;
+    		}
+    		//System.out.println("before after2: "+words[k]+" "+holder); //debug
+    		if (!binarySearchWord(holder,englishWords)
+    				&& holder.length()>=2 ){
+    			printStatus("Grammar error",words[k]);
+    			points--;
+    		}
+    	}
         System.out.println("Score: "+points);
         if (points<=10) System.out.println("Rated: RTFM");
         else if (points<=15) System.out.println("Rated: Average question");
         else System.out.println("Rated: Smart question");
     }
     
-    private static String[] arrayToString(String[] lines) {
-    	if (lines==null || lines.length==0) return null;
-    	StringBuilder builder=new StringBuilder(lines[0]);
-    	for (int i=1;i<lines.length;i++) {
-    		if (isCodeTab(lines[i])) continue;
-    		builder.append('\n');
-    		builder.append(lines[i]);
-    		//If overflow then trim first
-    	}
-    	//System.out.println("builder "+builder);
+    private static String trimText(String text) {
+    	if (text==null || text.length()==0) return null;
+    	StringBuilder builder=new StringBuilder(text);
     	checkHyperlink(builder);
     	checkCodeSnippet(builder);
-    	return builder.toString().split("\n");
+    	return builder.toString();
     }
     
     private static InputStream wrapTextWithHTMLFormat(InputStream content) {
@@ -138,7 +122,7 @@ public class SQA
             context.set(HtmlMapper.class, new CustomizedHTMLMapper());
             parser.parse(input, textHandler, metadata, context);
             text=textHandler.toString().replaceAll("\\s+", " ");
-            System.out.println("Body: " + text); //debug
+            //System.out.println("Body: " + text); //debug
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -149,21 +133,6 @@ public class SQA
         	e.printStackTrace();	
         }
     	return text;
-    }
-    
-    private static void checkBlockOfCode(String word) {
-    	if (word.equals("<code>") || word.equals("<pre>")) 
-    		isCode=true; //inside code block
-    	else if (word.equals("</code>") || word.equals("</pre>")) 
-    		isCode=false; //no longer inside code block
-    	//System.out.println(word+" "+isCode);
-    }
-    
-    private static boolean isCodeTab(String word) {
-    	if (word==null || word.length()==0) return false;
-    	for (int i=0;i<4;i++)
-    		if (word.charAt(i)!=' ') return false;
-    	return true;
     }
     
     //check if text contains hyperlink
@@ -229,12 +198,8 @@ public class SQA
     	return word.split("\\s+");
     }
     
-    private static void printStatus(String statusType, String word, int x,int y) {
-    	if (x==-1 && y==-1) 
-    		System.out.print(statusType+": ");
-    	else 
-    		System.out.print(statusType+" at ["+x+":"+y+"]: ");
-		System.out.println(word);
+    private static void printStatus(String statusType, String word) {
+    	System.out.println(statusType+": "+word);
     }
     
     private static String[] getStringFromFiles(String path) 

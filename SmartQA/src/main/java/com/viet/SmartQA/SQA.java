@@ -39,18 +39,18 @@ public class SQA
 	private static final String WORDS_LIST_PATH="TextFiles/wordlist.txt";
 	private static final String LEVEL1_PATH="TextFiles/InappropriateWordsLvl1.txt";
 	private static final String LEVEL2_PATH="TextFiles/InappropriateWordsLvl2.txt";
-	private static final String TEST_PATH="TextFiles/CodeTest.txt";
+	private static final String TEST_PATH="TextFiles/IntegrationTests/5.txt";
 	private static String[] englishWords; //If not found then lose points
 	private static String[] lvl1Words; //Lose points
 	private static String[] lvl2Words; //Immediately exit
 	private static Pattern backticks=Pattern.compile("\\`+");
 	private static Pattern hyperlink=Pattern.compile("\\[.+?\\][(].+?[)]");
+	public static int points=30;
     public static void main( String[] args ) throws IOException
     {
     	englishWords=getStringFromFiles(WORDS_LIST_PATH);
     	lvl1Words=getStringFromFiles(LEVEL1_PATH);
     	lvl2Words=getStringFromFiles(LEVEL2_PATH);
-    	int points=30;
     	String fileContent;
         try {
         	fileContent=htmlFormatToText(TEST_PATH);
@@ -59,8 +59,9 @@ public class SQA
         	return;
         }
         fileContent=trimText(fileContent);
-        String[] words = splitWhiteSpace(fileContent);
-    	if (words==null || words.length==0) return;
+        if (fileContent==null || fileContent.length()==0) printResult();
+        String[] words= splitWhiteSpace(fileContent);
+    	if (words==null || words.length==0) printResult();
     	for (int k=0;k<words.length;k++) {
     		if (words[k]==null 
     				|| words[k].equals("")
@@ -86,10 +87,15 @@ public class SQA
     			points--;
     		}
     	}
-        System.out.println("Score: "+points);
+    	printResult();
+    }
+    
+    private static void printResult() {
+    	System.out.println("Score: "+points);
         if (points<=10) System.out.println("Rated: RTFM");
         else if (points<=15) System.out.println("Rated: Average question");
         else System.out.println("Rated: Smart question");
+        System.exit(0);
     }
     
     private static String trimText(String text) {
@@ -101,7 +107,7 @@ public class SQA
     }
     
     private static InputStream wrapTextWithHTMLFormat(InputStream content) {
-    	String beginning = "<!DOCTYPE html>\n<html>\n";
+    	String beginning = "<!DOCTYPE html>\n<html>";
     	String end = "\n</html>";
     	List<InputStream> streams = Arrays.asList(
     	    new ByteArrayInputStream(beginning.getBytes()),
@@ -116,12 +122,14 @@ public class SQA
     	try {
             InputStream input=wrapTextWithHTMLFormat(new FileInputStream(new File(path)));
             BodyContentHandler textHandler = new BodyContentHandler();
+            
             Metadata metadata = new Metadata();
             AutoDetectParser parser = new AutoDetectParser();
             ParseContext context = new ParseContext();
             context.set(HtmlMapper.class, new CustomizedHTMLMapper());
             parser.parse(input, textHandler, metadata, context);
-            text=textHandler.toString().replaceAll("\\s+", " ");
+            //System.out.println("Before: " + textHandler.toString()); //debug
+            text=textHandler.toString().replaceAll("(\n)[(\\p{Blank}{4,})(>)](.[^\n]*)", " ").replaceAll("\\s"," ");
             //System.out.println("Body: " + text); //debug
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -195,6 +203,12 @@ public class SQA
     }
     
     private static String[] splitWhiteSpace(String word) {
+    	String[] holder;
+    	try {
+    		holder=word.split("\\s+");
+    	} catch (NullPointerException e) {
+    		return null;
+    	}
     	return word.split("\\s+");
     }
     

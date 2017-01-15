@@ -1,0 +1,29 @@
+Assign grades to scores, but bad operand type error. 1st type boolean, 2nd type double
+
+So I'm trying to assign grades "A, B, C, D, F" to individual scores in an array, but keep getting a bad operand error. I can see why it keeps giving me this error(since it's a boolean trying to compare to a double), but don't know would I would solve it. I tried to add parentheses, but no luck Here is my part of the code and the how grades are calculated.
+
+     for(int s = 0; s < scores.length; s++) {
+        if(mean + standard <= scores[s]) {
+          gradesArray[s] = 'A';
+        } 
+        if(mean + (standard/3) <= scores[s] < mean + standard) {
+          gradesArray[s] = 'B';
+        }
+        if(mean - (standard/3) <= scores[s] < mean + (standard/3)) {
+          gradesArray[s] = 'C';
+        }
+        if(mean - standard <= scores[s] < mean - (standard/3)) {
+          gradesArray[s] = 'D';
+        }
+        if(scores[s] < mean - standard) {
+          gradesArray[s] = 'F';
+        }
+
+        for(int j =0; j < gradesArray.length; j++) {
+          System.out.printf("%c\n", gradesArray[i]);
+        }
+
+    }
+    
+with ``scores[] = {60.5, 80.3, 70.2, 20.1, 90.9}`` how grades are calculated: `A = mean+standard <= score, B = mean+(standard/3) <= score < mean+standard, C = mean-(standard/3) <= score < mean+(standard/3), D = mean-standard <= score < mean - (standard/3), F = score < mean - standard`
+    

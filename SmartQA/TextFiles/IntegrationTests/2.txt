@@ -1,0 +1,9 @@
+How to rotate an object to point to a point in 3d space?
+
+I am currently having trouble rotating the camera in my scene (using python and pyglet) to point towards the origin of the camera. I am trying to make a camera that orbits around a given point (the origin), which I have everything working but the camera rotation toward the origin.
+
+    self.rot[0] = rad2deg(math.atan2(self.pos[1]-self.origin[0], self.pos[2]-self.origin[2]))
+    self.rot[1] = rad2deg(math.atan2((self.pos[0]-self.origin[0])*math.cos(deg2rad(self.rot[0])), self.pos[2]-self.origin[2]))
+    self.rot[2] = rad2deg(math.atan2(math.cos(deg2rad(self.rot[0])), math.sin(deg2rad(self.rot[0])) * math.sin(deg2rad(self.rot[1]))))
+
+(self being the camera object)

@@ -1,0 +1,9 @@
+Has anyone used IAX24 J library for incoming calls
+
+I am trying to implement IAX based voip application for my android, and using AndroVOIP open source library for dialing and receiving incoming calls, but in AndroVOIP there are no listener for incoming calls although my registration for IAX is successful. I tried using a Japanese client IAX24J which is an built for NJIAX but still unable to receive incoming calls. 
+
+[https://github.com/kmamykin/iax24j/](https://github.com/kmamykin/iax24j/)
+
+<a href="https://github.com/kmamykin/iax24j/">https://github.com/kmamykin/iax24j/</a> <-- absolutely barbaric
+
+I am looking to know that how Zoiper and IAXAgent beta from Playstore is doing incoming calls. I am looking for good library project to implement it in my application. 

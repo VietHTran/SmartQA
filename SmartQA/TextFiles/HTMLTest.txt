@@ -8,6 +8,10 @@
 <code> but this is not a code </code>
 <img src="imgr.com"/>
 
+    this is a code
+    this too
+  but not this
+  
 <h1>LOL players shopping list</h1>
 
 <ul>

@@ -1,0 +1,94 @@
+Pyalgotrade's ninjatraderfeed fails after 7 onBars() calls
+
+I'm trying to use the [ninjaTrader](http://gbeced.github.io/pyalgotrade/docs/v0.18/html/barfeed.html#module-pyalgotrade.barfeed.ninjatraderfeed) feed via CSV files containing minute data. The program works as intended for seven onBars calls, then spits an error:
+
+>self.info(str(instr) + " current Open price: %.2f" % (bars.getBar(instr).getOpen())) AttributeError: 'NoneType' object has no attribute 'getOpen'
+
+My code:
+
+    class myExample(strategy.BacktestingStrategy):
+        def __init__(self, feed, instruments):
+            self.__position = None
+            strategy.BacktestingStrategy.__init__(self, feed, 10000)
+            self.__instruments = instruments
+
+
+        def onBars(self, bars):
+            for instr in self.__instruments:
+                self.info(str(instr) + " current Open price: %.2f" % (bars.getBar(instr).getOpen()))
+
+    feed = ninjatraderfeed.Feed(Frequency.MINUTE)
+    feed.addBarsFromCSV("AMZN",  "AMZN.csv")
+    feed.addBarsFromCSV("MMM",  "MMM.csv")
+    strat = myExample(feed, ["AMZN","MMM"])
+    strat.run()
+    
+AMZN.csv
+
+<pre>
+20161227 093100 761.8262    763.77  761.58  763.4   11629
+20161227 093200 762.12  762.48  761.2   761.85  15101
+20161227 093300 762.215 762.769 761.77  761.77  13181
+20161227 093400 762.3516    762.62  762.066 762.2211    6483
+20161227 093500 762.73  762.88  762.2   762.392 8093
+20161227 093600 763.055 763.36  762.7318    762.7318    11446
+20161227 093700 762.45  763.4595    762.45  763.17  8561
+20161227 093800 762.8   763 762.45  762.75  10116
+</pre>
+
+MMM.csv
+
+<pre>
+20161227 093100 178.95  178.95  178.775 178.775 200
+20161227 093200 178.58  178.75  178.57  178.73  15968
+20161227 093300 178.9   178.935 178.765 178.765 604
+20161227 093400 179.12  179.14  178.91  178.91  2517
+20161227 093500 178.8167    179.15  178.8167    179.12  4236
+20161227 093600 178.74  178.92  178.74  178.918 2900
+20161227 093800 178.78  178.78  178.78  178.78  100
+20161227 093900 178.95  178.99  178.9   178.9   1300
+</pre>
+
+Output:
+
+<pre>
+2016-12-27 09:31:00+00:00 strategy [INFO] AMZN current Open price: 761.83
+2016-12-27 09:31:00+00:00 strategy [INFO] MMM current Open price: 178.95
+2016-12-27 09:32:00+00:00 strategy [INFO] AMZN current Open price: 762.12
+2016-12-27 09:32:00+00:00 strategy [INFO] MMM current Open price: 178.58
+2016-12-27 09:33:00+00:00 strategy [INFO] AMZN current Open price: 762.22
+2016-12-27 09:33:00+00:00 strategy [INFO] MMM current Open price: 178.90
+2016-12-27 09:34:00+00:00 strategy [INFO] AMZN current Open price: 762.35
+2016-12-27 09:34:00+00:00 strategy [INFO] MMM current Open price: 179.12
+2016-12-27 09:35:00+00:00 strategy [INFO] AMZN current Open price: 762.73
+2016-12-27 09:35:00+00:00 strategy [INFO] MMM current Open price: 178.82
+2016-12-27 09:36:00+00:00 strategy [INFO] AMZN current Open price: 763.05
+2016-12-27 09:36:00+00:00 strategy [INFO] MMM current Open price: 178.74
+2016-12-27 09:37:00+00:00 strategy [INFO] AMZN current Open price: 762.45
+Traceback (most recent call last):
+  File "example.py", line 43, in <module>
+    strat.run()
+  File "/home/work/pyCharmZipEnv/local/lib/python2.7/site-packages/pyalgotrade/strategy/__init__.py", line 512, in run
+    self.__dispatcher.run()
+  File "/home/work/pyCharmZipEnv/local/lib/python2.7/site-packages/pyalgotrade/dispatcher.py", line 109, in run
+    eof, eventsDispatched = self.__dispatch()
+  File "/home/work/pyCharmZipEnv/local/lib/python2.7/site-packages/pyalgotrade/dispatcher.py", line 97, in __dispatch
+    if self.__dispatchSubject(subject, smallestDateTime):
+  File "/home/work/pyCharmZipEnv/local/lib/python2.7/site-packages/pyalgotrade/dispatcher.py", line 75, in __dispatchSubject
+    ret = subject.dispatch() is True
+  File "/home/work/pyCharmZipEnv/local/lib/python2.7/site-packages/pyalgotrade/feed/__init__.py", line 108, in dispatch
+    self.__event.emit(dateTime, values)
+  File "/home/work/pyCharmZipEnv/local/lib/python2.7/site-packages/pyalgotrade/observer.py", line 61, in emit
+    handler(*args, **kwargs)
+  File "/home/work/pyCharmZipEnv/local/lib/python2.7/site-packages/pyalgotrade/strategy/__init__.py", line 505, in __onBars
+    self.onBars(bars)
+  File "example.py", line 30, in onBars
+    self.info(str(instr) + " current Open price: %.2f" % (bars.getBar(instr).getOpen()))
+AttributeError: 'NoneType' object has no attribute 'getOpen
+</pre>
+
+The only thing I changed in ninjatraderfeed.py was getDelimiter() to use "," instead of ";"
+
+Why would it stop working after seven onBars calls?
+
+EDIT: Copied first 8 values from each csv file.

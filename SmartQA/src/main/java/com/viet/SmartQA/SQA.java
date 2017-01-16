@@ -39,7 +39,8 @@ public class SQA
 	private static final String WORDS_LIST_PATH="TextFiles/wordlist.txt";
 	private static final String LEVEL1_PATH="TextFiles/InappropriateWordsLvl1.txt";
 	private static final String LEVEL2_PATH="TextFiles/InappropriateWordsLvl2.txt";
-	private static final String TEST_PATH="TextFiles/IntegrationTests/5.txt";
+	private static final String TEST_PATH="TextFiles/IntegrationTests/2.txt";
+	private static String filePath;
 	private static String[] englishWords; //If not found then lose points
 	private static String[] lvl1Words; //Lose points
 	private static String[] lvl2Words; //Immediately exit
@@ -48,12 +49,13 @@ public class SQA
 	public static int points=30;
     public static void main( String[] args ) throws IOException
     {
+    	handleCommands(args);
     	englishWords=getStringFromFiles(WORDS_LIST_PATH);
     	lvl1Words=getStringFromFiles(LEVEL1_PATH);
     	lvl2Words=getStringFromFiles(LEVEL2_PATH);
     	String fileContent;
         try {
-        	fileContent=htmlFormatToText(TEST_PATH);
+        	fileContent=htmlFormatToText(filePath);
         }catch (Exception e) {
         	System.out.println("Error 404: File not found");
         	return;
@@ -90,6 +92,24 @@ public class SQA
     	printResult();
     }
     
+    private static void handleCommands(String[] args) {
+    	int length=args.length;
+    	if (args==null || length==0) exitCommand("No argument found for this command");
+    	String command=args[0];
+    	if (command.equals("check")) {
+    		if (length>2) exitCommand("Redundant argument");
+    		if (length==1) exitCommand("Use \"check [file path]\" command to check the appropriate level of the question");
+    		filePath=args[1];
+    		if (!filePath.substring(length-4, length).equals(".txt")) exitCommand("Please type in path to file in .txt format");
+    		return;
+    	}
+    }
+    
+    private static void exitCommand(String respond) {
+    	System.out.println(respond);
+    	System.exit(0);
+    }
+    
     private static void printResult() {
     	System.out.println("Score: "+points);
         if (points<=10) System.out.println("Rated: RTFM");
@@ -122,14 +142,15 @@ public class SQA
     	try {
             InputStream input=wrapTextWithHTMLFormat(new FileInputStream(new File(path)));
             BodyContentHandler textHandler = new BodyContentHandler();
-            
             Metadata metadata = new Metadata();
             AutoDetectParser parser = new AutoDetectParser();
             ParseContext context = new ParseContext();
             context.set(HtmlMapper.class, new CustomizedHTMLMapper());
             parser.parse(input, textHandler, metadata, context);
             //System.out.println("Before: " + textHandler.toString()); //debug
-            text=textHandler.toString().replaceAll("(\n)[(\\p{Blank}{4,})(>)](.[^\n]*)", " ").replaceAll("\\s"," ");
+            text=textHandler.toString()
+            		.replaceAll("(\n)(\\p{Blank}{4,})(.[^\n]*)", " ")
+            		.replaceAll("\\s"," ");
             //System.out.println("Body: " + text); //debug
         } catch (FileNotFoundException e) {
             e.printStackTrace();

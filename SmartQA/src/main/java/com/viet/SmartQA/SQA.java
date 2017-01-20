@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -114,78 +116,167 @@ public class SQA
     		userGuide();
     		exitCommand("");
     	} else if (command.equals("add")) {
-    		checkArguments(args,3,"Use \"add <dictionary code> <word>\" command to add new word to selected dictionary");
-    		int dictCode=0;
-    		try {
-    			dictCode=Integer.parseInt(args[1]);
-    		} catch (NumberFormatException e) {
-    			exitCommand("Invalid dictionary code");
-    		}
-    		//if (dictCode>2 || dictCode<0) exitCommand("Invalid dictionary code");
-    		if (dictCode>3 || dictCode<0) exitCommand("Invalid dictionary code"); //test only
-    		String[] selectedDictionary;
-    		String dictionaryName;
-    		String path;
-    		String newWord=getAlphabetOnly(args[2]);
-			//System.out.println("Commands: "+args[0]+" "+args[1]+" "+args[2]+"\n"); //debug
-    		switch (dictCode) {
-    			case 1:
-    				selectedDictionary=lvl1Words;
-    				path=LEVEL1_PATH;
-    				dictionaryName="Inappropriate words list level 1";
-    				break;
-    			case 2:
-    				selectedDictionary=lvl2Words;
-    				path=LEVEL2_PATH;
-    				dictionaryName="Inappropriate words list level 2";
-    				break;
-//    			case 3: //test only
-//    				selectedDictionary=testWords;
-//    				path=TEST_LIST_PATH;
-//    				dictionaryName="Test dictionary";
-//    				break;
-    			default:
-    				selectedDictionary=englishWords;
-    				path=WORDS_LIST_PATH;
-    				dictionaryName="English dictionary";
-    		}
-    		int index=binarySearchWord(newWord,selectedDictionary);
-    		if (index>-1) {
-    			exitCommand(dictionaryName+" already contains word \""+args[2]+"\"");
-    		} else {
-    			index*=-1;
-    			index+=newWord.compareTo(selectedDictionary[index])<0 ? 1:2; //file is base 1
-    			//System.out.println(index+": "+selectedDictionary[index-1]); //debug
-    			try {
-    				insertStringInFile(new File(path),index, newWord);
-    			} catch (Exception e) {
-    				e.printStackTrace();
-    				exitCommand("");
-    			}
-    			exitCommand("New word \""+newWord+"\" is successfully inserted into "+dictionaryName);
-    		}
+    		addNewWord(args);
+    	} else if (command.equals("remove")) {
+    		removeWord(args);
     	}
     }
     
-	private static void insertStringInFile(File inFile, int line, String lineToBeInserted) throws Exception {
-		File outFile = new File("$$$$$$$$.txt");
-		FileInputStream fis = new FileInputStream(inFile);
-		BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-		FileOutputStream fos = new FileOutputStream(outFile);
-		PrintWriter out = new PrintWriter(fos);
-		String thisLine = "";
-		int i = 1;
-		while ((thisLine = in.readLine()) != null) {
-			if (i == line)
-				out.println(lineToBeInserted);
-			out.println(thisLine);
-			i++;
+    private static void removeWord(String[] args) {
+    	checkArguments(args,3,"Use \"remove <dictionary code> <word>\" command to remove word from selected dictionary");
+    	int dictCode=0;
+		try {
+			dictCode=Integer.parseInt(args[1]);
+		} catch (NumberFormatException e) {
+			exitCommand("Invalid dictionary code");
 		}
-		out.flush();
-		out.close();
-		in.close();
-		inFile.delete();
-		outFile.renameTo(inFile);
+		if (dictCode>2 || dictCode<0) exitCommand("Invalid dictionary code");
+		//if (dictCode>3 || dictCode<0) exitCommand("Invalid dictionary code"); //test only
+		String[] selectedDictionary;
+		String dictionaryName;
+		String path;
+		String word=getAlphabetOnly(args[2]);
+		//System.out.println("Commands: "+args[0]+" "+args[1]+" "+args[2]+"\n"); //debug
+		switch (dictCode) {
+			case 1:
+				selectedDictionary=lvl1Words;
+				path=LEVEL1_PATH;
+				dictionaryName="Inappropriate words list level 1";
+				break;
+			case 2:
+				selectedDictionary=lvl2Words;
+				path=LEVEL2_PATH;
+				dictionaryName="Inappropriate words list level 2";
+				break;
+//			case 3: //test only
+//				selectedDictionary=testWords;
+//				path=TEST_LIST_PATH;
+//				dictionaryName="Test dictionary";
+//				break;
+			default:
+				selectedDictionary=englishWords;
+				path=WORDS_LIST_PATH;
+				dictionaryName="English dictionary";
+		}
+		int index=binarySearchWord(word,selectedDictionary);
+		if (index>-1) {
+			removeStringFromFile(path,word);
+			exitCommand("Word \""+word+"\" is successfully removed from "+dictionaryName);
+		} else {
+			exitCommand("Word \""+word+"\" doesn't exist in "+dictionaryName);
+		}
+    }
+    
+    private static void addNewWord(String[] args) {
+    	checkArguments(args,3,"Use \"add <dictionary code> <word>\" command to add new word to selected dictionary");
+		int dictCode=0;
+		try {
+			dictCode=Integer.parseInt(args[1]);
+		} catch (NumberFormatException e) {
+			exitCommand("Invalid dictionary code");
+		}
+		if (dictCode>2 || dictCode<0) exitCommand("Invalid dictionary code");
+		//if (dictCode>3 || dictCode<0) exitCommand("Invalid dictionary code"); //test only
+		String[] selectedDictionary;
+		String dictionaryName;
+		String path;
+		String newWord=getAlphabetOnly(args[2]);
+		//System.out.println("Commands: "+args[0]+" "+args[1]+" "+args[2]+"\n"); //debug
+		switch (dictCode) {
+			case 1:
+				selectedDictionary=lvl1Words;
+				path=LEVEL1_PATH;
+				dictionaryName="Inappropriate words list level 1";
+				break;
+			case 2:
+				selectedDictionary=lvl2Words;
+				path=LEVEL2_PATH;
+				dictionaryName="Inappropriate words list level 2";
+				break;
+//			case 3: //test only
+//				selectedDictionary=testWords;
+//				path=TEST_LIST_PATH;
+//				dictionaryName="Test dictionary";
+//				break;
+			default:
+				selectedDictionary=englishWords;
+				path=WORDS_LIST_PATH;
+				dictionaryName="English dictionary";
+		}
+		int index=binarySearchWord(newWord,selectedDictionary);
+		if (index>-1) {
+			exitCommand(dictionaryName+" already contains word \""+args[2]+"\"");
+		} else if (index==-1) {
+			exitCommand("Invalid word");
+		} else { 
+			index*=-1;
+			index-=newWord.compareTo(selectedDictionary[index-2])<0 ? 1:0; //file is base 1
+			//System.out.println(index+": "+selectedDictionary[index-1]); //debug
+			try {
+				insertStringInFile(path,index, newWord);
+			} catch (Exception e) {
+				e.printStackTrace();
+				exitCommand("");
+			}
+			exitCommand("New word \""+newWord+"\" is successfully inserted into "+dictionaryName);
+		}
+    }
+    
+    private static void removeStringFromFile(String path, String word) {
+    	try {
+            File inFile = new File(path);
+            File outFile = new File(inFile.getAbsolutePath() + ".tmp");
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            PrintWriter writer = new PrintWriter(new FileWriter(outFile));
+            String lineStr ;
+            while ((lineStr = reader.readLine()) != null) {
+                if (!lineStr.trim().equals(word)) {
+                	writer.println(lineStr);
+                	writer.flush();
+                }
+            }
+            writer.close();
+            reader.close();
+            inFile.delete();
+            outFile.renameTo(inFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+	private static void insertStringInFile(String path, int line, String newWord) {
+		try {
+            File inFile = new File(path);
+            File outFile = new File(inFile.getAbsolutePath() + ".tmp");
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            PrintWriter writer = new PrintWriter(new FileWriter(outFile));
+            String lineStr ;
+            int curLine=1;
+            while ((lineStr = reader.readLine()) != null) {
+                if (curLine==line) {
+                	writer.println(newWord);
+                	writer.flush();
+                	curLine++;
+                }
+                writer.println(lineStr);
+            	writer.flush();
+                curLine++;
+            }
+            if (curLine<=line){ //In case new word is at the bottom
+            	writer.println(newWord);
+            	writer.flush();
+            }
+            writer.close();
+            reader.close();
+            inFile.delete();
+            outFile.renameTo(inFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
     
     private static void checkArguments(String[] args, int requiredArgs, String description) {
@@ -364,7 +455,7 @@ public class SQA
     		else //word is lexicographically smaller than collections[i]
     			right=mid-1;
     	}
-    	return -1*mid;
+    	return -1*(mid+2);
     }
     
     private static boolean isNumeric(String s) {  

@@ -5,19 +5,15 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.RandomAccessFile;
 import java.io.SequenceInputStream;
-import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -27,7 +23,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
@@ -35,6 +30,7 @@ import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.html.HtmlMapper;
 import org.apache.tika.sax.BodyContentHandler;
+import org.joda.time.DateTime;
 import org.xml.sax.SAXException;
 
 /**
@@ -43,16 +39,16 @@ import org.xml.sax.SAXException;
  */
 public class SQA 
 {
-	private static final String WORDS_LIST_PATH="TextFiles/wordlist.txt";
-	private static final String LEVEL1_PATH="TextFiles/InappropriateWordsLvl1.txt";
-	private static final String LEVEL2_PATH="TextFiles/InappropriateWordsLvl2.txt";
+	private static final String WORDS_LIST_PATH="wordlist.txt";
+	private static final String LEVEL1_PATH="InappropriateWordsLvl1.txt";
+	private static final String LEVEL2_PATH="InappropriateWordsLvl2.txt";
 	//private static final String TEST_LIST_PATH="TextFiles/DictionaryTest.txt"; //test only
 	//private static final String TEST_PATH="TextFiles/CommandLineTest.txt"; //test only
 	private static String filePath;
 	private static String[] englishWords; //If not found then lose points
 	private static String[] lvl1Words; //Lose points
 	private static String[] lvl2Words; //Immediately exit
-	private static String[] testWords;
+	//private static String[] testWords;
 	private static Pattern backticks=Pattern.compile("\\`+");
 	private static Pattern hyperlink=Pattern.compile("\\[.+?\\][(].+?[)]");
 	public static int points=30;
@@ -110,7 +106,7 @@ public class SQA
     	if (command.equals("check")) {
     		checkArguments(args,2,"Use \"check <file path>\" command to check the appropriate level of the question");
     		filePath=args[1];
-    		if (!filePath.substring(length-4, length).equals(".txt")) exitCommand("Please type in path to file in .txt format");
+    		if (filePath.length()<4 ||!filePath.substring(filePath.length()-4, filePath.length()).equals(".txt")) exitCommand("Please type in path to file in .txt format");
     		return;
     	} else if (command.equals("help")) {
     		userGuide();
@@ -160,7 +156,7 @@ public class SQA
 		}
 		int index=binarySearchWord(word,selectedDictionary);
 		if (index>-1) {
-			removeStringFromFile(path,word);
+			removeStringFromFile(selectedDictionary,index,word,path);
 			exitCommand("Word \""+word+"\" is successfully removed from "+dictionaryName);
 		} else {
 			exitCommand("Word \""+word+"\" doesn't exist in "+dictionaryName);
@@ -213,7 +209,7 @@ public class SQA
 			index-=newWord.compareTo(selectedDictionary[index-2])<0 ? 1:0; //file is base 1
 			//System.out.println(index+": "+selectedDictionary[index-1]); //debug
 			try {
-				insertStringInFile(path,index, newWord);
+				insertStringInFile(selectedDictionary,index, newWord, path);
 			} catch (Exception e) {
 				e.printStackTrace();
 				exitCommand("");
@@ -222,61 +218,62 @@ public class SQA
 		}
     }
     
-    private static void removeStringFromFile(String path, String word) {
+    private static void removeStringFromFile(String[] dict, int line, String word, String filePath) {
     	try {
-            File inFile = new File(path);
-            File outFile = new File(inFile.getAbsolutePath() + ".tmp");
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-            PrintWriter writer = new PrintWriter(new FileWriter(outFile));
-            String lineStr ;
-            while ((lineStr = reader.readLine()) != null) {
-                if (!lineStr.trim().equals(word)) {
-                	writer.println(lineStr);
-                	writer.flush();
-                }
-            }
-            writer.close();
-            reader.close();
-            inFile.delete();
-            outFile.renameTo(inFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+			PrintWriter writer = new PrintWriter(filePath,"UTF-8");
+			for (int i=0;i<dict.length;i++) {
+				if (line==i) {
+					continue;
+				}
+				writer.println(dict[i]);
+				writer.flush();
+			}
+			//System.out.println("test: "+filePath); //debug
+			writer.close();
+			System.out.println("Removing word from SQA.jar...");
+			Runtime rt1 = Runtime.getRuntime();
+			rt1.exec("zip -d SQA.jar "+filePath).waitFor();
+			Runtime rt2 = Runtime.getRuntime();
+			rt2.exec("jar uf SQA.jar "+filePath).waitFor();
+			File writerFile=new File(filePath);
+			writerFile.delete();
+		} catch (IOException e) {
+			e.printStackTrace();
+			exitCommand("Remove unsucessful");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			exitCommand("Remove unsucessful");
+		}
     }
     
-	private static void insertStringInFile(String path, int line, String newWord) {
+	private static void insertStringInFile(String[] dict, int line, String newWord, String filePath) {
 		try {
-            File inFile = new File(path);
-            File outFile = new File(inFile.getAbsolutePath() + ".tmp");
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-            PrintWriter writer = new PrintWriter(new FileWriter(outFile));
-            String lineStr ;
-            int curLine=1;
-            while ((lineStr = reader.readLine()) != null) {
-                if (curLine==line) {
-                	writer.println(newWord);
-                	writer.flush();
-                	curLine++;
-                }
-                writer.println(lineStr);
-            	writer.flush();
-                curLine++;
-            }
-            if (curLine<=line){ //In case new word is at the bottom
-            	writer.println(newWord);
-            	writer.flush();
-            }
-            writer.close();
-            reader.close();
-            inFile.delete();
-            outFile.renameTo(inFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+			line--;
+			PrintWriter writer = new PrintWriter(filePath,"UTF-8");
+			for (int i=0;i<dict.length;i++) {
+				if (line==i) {
+					writer.println(newWord);
+					writer.flush();
+				}
+				writer.println(dict[i]);
+				writer.flush();
+			}
+			//System.out.println("test: "+filePath); //debug
+			writer.close();
+			System.out.println("Inserting new word to SQA.jar...");
+			Runtime rt1 = Runtime.getRuntime();
+			rt1.exec("zip -d SQA.jar "+filePath).waitFor();
+			Runtime rt2 = Runtime.getRuntime();
+			rt2.exec("jar uf SQA.jar "+filePath).waitFor();
+			File writerFile=new File(filePath);
+			writerFile.delete();
+		} catch (IOException e) {
+			e.printStackTrace();
+			exitCommand("Insert unsucessful");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			exitCommand("Insert unsucessful");
+		}
 	}
     
     private static void checkArguments(String[] args, int requiredArgs, String description) {
@@ -288,7 +285,7 @@ public class SQA
     private static void userGuide() {
     	System.out.println("check <txt path>: check the appropriate level of the question in the text file");
     	System.out.println("add <dictionary code> <word>: add new word to selected dictionary");
-    	//System.out.println("remove <dictionary code> <word>: remove a word out of the selected dictionary");
+    	System.out.println("remove <dictionary code> <word>: remove a word out of the selected dictionary");
     	System.out.println("\tdictionary code: english dictionary[0], inappropriate words level 1[1], inappropriate words level 2[2]");
     }
     
@@ -426,17 +423,14 @@ public class SQA
     
     private static String[] getStringFromFiles(String path) 
     		throws IOException {
-    	Path filePath = Paths.get(path);
-    	Object[] holder=Files
-    			.lines(filePath, StandardCharsets.UTF_8)
-    			.toArray();
-    	if (holder==null) return null;
-    	String[] content=new String[holder.length];
-    	for (int i=0;i<holder.length;i++) {
-    		content[i]=(String)holder[i];
-    		//System.out.println(content[i]); //test
+    	InputStream inp = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+    	BufferedReader reader=new BufferedReader(new InputStreamReader(inp));
+    	String line=null;
+    	ArrayList<String> holder= new ArrayList<String>();
+    	while ((line=reader.readLine())!=null) {
+    		holder.add(line);
     	}
-    	return content;
+    	return holder.toArray(new String[0]);
     }
     
     private static int binarySearchWord(String word, String[] collections) {

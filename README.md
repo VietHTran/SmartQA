@@ -14,6 +14,6 @@ Identify whether the question asked on forum by the user is an appropriate quest
 - `remove <dictionary code> <word>`: Remove word from the specified dictionary.
 
 ## Dictionary code:
-0: English dictionary (used to check for grammar)
-1: Inappropriate words level 1 (lose points if found in question)
-2: Inappropriate words level 2 (automatically marked as RTFM)
+- 0: English dictionary (used to check for grammar)
+- 1: Inappropriate words level 1 (lose points if found in question)
+- 2: Inappropriate words level 2 (automatically marked as RTFM)
